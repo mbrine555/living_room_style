@@ -1,0 +1,7 @@
+# Data
+*.jpg
+*.png
+*.jpeg
+
+# Python cache
+__pycache__/
