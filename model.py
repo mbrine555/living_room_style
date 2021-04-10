@@ -360,12 +360,6 @@ if __name__ == '__main__':
         default=100, 
         help='how many batches to wait before logging training status'
     )
-    parser.add_argument(
-        '--backend', 
-        type=str, 
-        default=None,
-        help='backend for distributed training (tcp, gloo on cpu and gloo, nccl on gpu)'
-    )
 
     # Container environment
     parser.add_argument(
