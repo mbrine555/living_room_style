@@ -155,7 +155,7 @@ def _load_model():
                 ("fc", copy.deepcopy(model.fc))
             ])
         ) 
-        for t in transformations
+        for t in ['affine', 'similarity']
     }
 
     classifier = nn.Sequential(
@@ -353,12 +353,6 @@ if __name__ == '__main__':
         type=float, 
         default=0.1,
         help='aet learning rate (default: 0.1)'
-    )
-    parser.add_argument(
-        '--log-interval', 
-        type=int, 
-        default=100, 
-        help='how many batches to wait before logging training status'
     )
 
     # Container environment
