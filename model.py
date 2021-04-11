@@ -178,7 +178,7 @@ def train(args):
     logger.debug(f"Number of gpus available - {args.num_gpus}")
     device = torch.device('cuda' if args.num_gpus > 0 else 'cpu')
 
-    train_dataloader, validation_dataloader = _get_dataloaders(args.input-size, args.batch-size, args.val-batch-size, args.data-dir)
+    train_dataloader, validation_dataloader = _get_dataloaders(args.input_size, args.batch_size, args.val_batch_size, args.data_dir)
 
     backbone, decoders, classifier = _load_model()
     backbone = backbone.to(device)
@@ -187,9 +187,9 @@ def train(args):
     classifier = classifier.to(device)
 
     backbone_params = [backbone.parameters(), classifier.parameters()]
-    backbone_optimizer = optim.Adam(itertools.chain(*backbone_params), lr=args.bacbone-lr)
+    backbone_optimizer = optim.Adam(itertools.chain(*backbone_params), lr=args.bacbone_lr)
     decoder_params = [d.parameters() for _, d in decoders.items()]
-    aet_optimizer = optim.SGD(itertools.chain(*decoder_params), lr=args.aet-lr)
+    aet_optimizer = optim.SGD(itertools.chain(*decoder_params), lr=args.aet_lr)
     criterion = nn.MSELoss()
     class_criterion = nn.CrossEntropyLoss()
     kl_criterion = nn.KLDivLoss(reduction='batchmean')
@@ -207,7 +207,7 @@ def train(args):
     kl_loss_inc = 1/16000
 
     for epoch in range(1, args.epochs+1):
-        print(f"Epoch {epoch}/{args.epochs }")
+        print(f"Epoch {epoch}/{ args.epochs }")
         print('-' * 10)
 
         backbone.train()
@@ -306,7 +306,7 @@ def train(args):
     logger.info(f"Training complete in {time_elapsed // 60}m {time_elapsed % 60}s")
     final_model = nn.Sequential(backbone, classifier)
 
-    save_model(final_model, args.model-dir)
+    save_model(final_model, args.model_dir)
 
 def save_model(model, model_dir):
     logger.info("Saving the model.")
