@@ -11,7 +11,6 @@ from typing import Tuple, Any, Optional, Callable, Mapping
 
 import matplotlib.pyplot as plt
 import numpy as np
-import sagemaker_containers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -123,11 +122,11 @@ def _get_dataloaders(
 
     logging.info("Get training dataloader")
     trans_dataset = TransDatasetFolder(os.path.join(data_dir, 'training'), pre_transform=pre_transform, post_transform=post_transform)
-    train_dataloader = torch.utils.data.DataLoader(trans_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
+    train_dataloader = torch.utils.data.DataLoader(trans_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
     logging.info("Get validation dataloader")
     validation_dataset = ImageFolder(os.path.join(data_dir, 'validation'), validation_transform)
-    validation_dataloader = torch.utils.data.DataLoader(validation_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
+    validation_dataloader = torch.utils.data.DataLoader(validation_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
     return train_dataloader, validation_dataloader
 
