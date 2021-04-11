@@ -187,7 +187,7 @@ def train(args):
     classifier = classifier.to(device)
 
     backbone_params = [backbone.parameters(), classifier.parameters()]
-    backbone_optimizer = optim.Adam(itertools.chain(*backbone_params), lr=args.bacbone_lr)
+    backbone_optimizer = optim.Adam(itertools.chain(*backbone_params), lr=args.backbone_lr)
     decoder_params = [d.parameters() for _, d in decoders.items()]
     aet_optimizer = optim.SGD(itertools.chain(*decoder_params), lr=args.aet_lr)
     criterion = nn.MSELoss()
