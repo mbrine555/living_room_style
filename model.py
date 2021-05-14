@@ -46,7 +46,7 @@ def _get_dataloaders(
         ]),
     }
 
-    logging.info("Get dataloaders")
+    logger.info("Get dataloaders")
     image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['training', 'validation']}
     dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=0) for x in ['training', 'validation']}
 
@@ -114,7 +114,7 @@ def train(args):
             epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
             epoch_topk = running_topk_corrects / len(dataloaders[phase].dataset)
 
-            logger.info(f"{phase} Loss: {epoch_loss} Acc: {epoch_acc} Top 3 Acc: {epoch_topk}")
+            logger.info(f"{phase} Loss: {epoch_loss} {phase} Acc: {epoch_acc} {phase} Top 3 Acc: {epoch_topk}")
             if phase == 'validation' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_weights = copy.deepcopy(model.state_dict())
